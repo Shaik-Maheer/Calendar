@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calendar</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        color: #333;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        transition: all 0.3s;
+        background: linear-gradient(to bottom right, #e8f5e9, #c8e6c9); 
+      }
+      #calender {
+        padding:40px 50px;
+        margin: 20px;
+        width: 400px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 15px;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+      }
+      #calender:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+      }
+      header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 25px;
+      }
+      h3 {
+        margin: 0;
+        font-size: 26px;
+        color: #00796b;
+      }
+      h3:hover {
+        color: #000303;
+        transform: scale(1.06);
+      }
+      .weeks,
+      #days {
+        display: grid;
+        grid-template-columns: repeat(7, 1fr);
+        font-size: 18px;
+        text-align: center;
+        margin-bottom: 25px;
+      }
+      .weeks p {
+        color: #00796b;
+        font-weight: bolder;
+      }
+      .weeks p:hover {
+        color: #000303;
+        transform: scale(1.09);
+      }
+      .day {
+        padding: 19px;
+        border-radius: 10px;
+      }
+
+      .day:hover {
+        background-color: #c8e6c9;
+        transform: scale(1.06);
+      }
+      .today {
+        background-color: #00796b;
+        color: white;
+        border-radius: 10px;
+        font-weight: bold;
+        box-shadow: 0 4px 10px 3px rgba(0, 0, 0, 0.2);
+      }
+      .today:hover{
+        background-color: #000303;
+      }
+      button {
+        padding: 10px 30px;
+        border: none;
+        border-radius: 20px;
+        background-color: #00796b;
+        color: white;
+        font-size: 16px;
+        font-weight: bolder;
+        margin: 5px;
+        box-shadow: 0 2px 15px 2px rgba(0, 0, 0, 0.2);
+      }
+      button:hover {
+        background-color: #000303;
+        transform: scale(1.05);
+        color: white;
+      }
+      h1{
+        text-align: center;
+        margin-bottom: 50px;
+      }
+      article div{
+        display: flex;
+        justify-content: space-between;
+      }
+    </style>
+  </head>
+  <body> 
+      <main>
+        <h1>Blissful Calendar✨</h1>
+      <article id="calender">
+        <header>
+          <h3 id="curr-month">Month</h3>
+          <h3 id="curr-year">Year</h3>
+        </header>
+        <section class="weeks">
+          <p>S</p>
+          <p>M</p>
+          <p>T</p>
+          <p>W</p>
+          <p>T</p>
+          <p>F</p>
+          <p>S</p>
+        </section>
+        <hr />
+        <section id="days"></section>
+        <div>
+          <button id="pre">PREV</button>
+          <button id="next">NEXT</button>
+        </div>
+      </article>
+    </main>
+
+    <script>
+      let date = new Date();
+
+      function renderCalendar(date) {
+        const months = [
+          "JAN",
+          "FEB",
+          "MAR",
+          "APR",
+          "MAY",
+          "JUN",
+          "JUL",
+          "AUG",
+          "SEP",
+          "OCT",
+          "NOV",
+          "DEC",
+        ];
+
+        const currMonth = document.getElementById("curr-month");
+        const month = date.getMonth();
+        currMonth.textContent = months[month];
+
+        const year = date.getFullYear();
+        const currYear = document.getElementById("curr-year");
+        currYear.textContent = date.getFullYear();
+
+        const firstDay = new Date(
+          date.getFullYear(),
+          date.getMonth(),
+          1
+        ).getDay();
+        const noOfDaysInMonth = new Date(
+          date.getFullYear(),
+          date.getMonth() + 1,
+          0
+        ).getDate();
+
+        let dayHtml = "";
+        for (let i = 0; i < firstDay; i++) {
+          dayHtml += "<div class='day'></div>";
+        }
+        for (let day = 1; day <= noOfDaysInMonth; day++) {
+          let today = new Date();
+          if (
+            day === today.getDate() &&
+            month === today.getMonth() &&
+            date.getFullYear() === today.getFullYear()
+          ) {
+            dayHtml += "<div class='day today'>" + day + "</div>";
+          } else {
+            dayHtml += "<div class='day'>" + day + "</div>";
+          }
+        }
+        document.getElementById("days").innerHTML = dayHtml;
+      }
+      renderCalendar(date);
+
+      const previous = document.getElementById("pre");
+      const nextb = document.getElementById("next");
+
+      previous.addEventListener("click", function () {
+        date.setMonth(date.getMonth() - 1);
+        renderCalendar(date);
+      });
+
+      nextb.addEventListener("click", function () {
+        date.setMonth(date.getMonth() + 1);
+        renderCalendar(date);
+      });
+    </script>
+  </body>
+</html>
