@@ -11,10 +11,6 @@ Welcome to **Blissful Calendar**, a minimal and elegant web-based calendar app b
 - **Hover Effects** for a delightful user experience ✨
 - **Responsive Design** for various screen sizes 📱💻
 
-## Preview 🖼️
-
-![Blissful Calendar Preview](https://via.placeholder.com/400x300.png) *(Add a screenshot here)*
-
 ## Technologies Used 💻
 
 - **HTML5** 🧑‍💻
